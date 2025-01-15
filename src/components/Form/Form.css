@@ -1,0 +1,14 @@
+.form-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  
+  .form-column {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-column label {
+    margin-bottom: 8px;
+  }
