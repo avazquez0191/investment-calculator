@@ -1,4 +1,4 @@
-import mainLogo from '../../assets/react.svg';
+import mainLogo from '../../assets/investment-calculator-logo.png';
 import './Header.css';
 
 const Header = () => {
