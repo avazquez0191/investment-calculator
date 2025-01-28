@@ -21,10 +21,10 @@ function App() {
   const [duration, setDuration] = useState(0);
 
   investments = calculateInvestmentResults({
-    initialInvestment,
-    annualInvestment,
-    expectedReturn,
-    duration
+    initialInvestment: Number(initialInvestment),
+    annualInvestment: Number(annualInvestment),
+    expectedReturn: Number(expectedReturn),
+    duration: Number(duration)
   }).map((investmentYear: InvestmentYear, index) => {
     return <tr key={index}>
       <td>{investmentYear.year}</td>
