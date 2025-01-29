@@ -5,14 +5,10 @@ interface Props {
   annualInvestment: number;
   expectedReturn: number;
   duration: number;
-  handleInitialInvestmentOnChange: (...args: any[]) => any;
-  handleAnnualInvestmentOnChange: (...args: any[]) => any;
-  handleExpectedReturnOnChange: (...args: any[]) => any;
-  handleDurationOnChange: (...args: any[]) => any;
+  handleFormOnChange: (...args: any[]) => any;
 }
 
-const form = ({ initialInvestment, annualInvestment, expectedReturn, duration, handleInitialInvestmentOnChange,
-  handleAnnualInvestmentOnChange, handleExpectedReturnOnChange, handleDurationOnChange }: Props) => {
+const form = ({ initialInvestment, annualInvestment, expectedReturn, duration, handleFormOnChange }: Props) => {
 
   return (
     <>
@@ -20,21 +16,21 @@ const form = ({ initialInvestment, annualInvestment, expectedReturn, duration, h
         <div className="form-row">
           <div className="form-column">
             <label htmlFor="initial-investment">Initial Investment</label>
-            <input type="number" id="initial-investment" defaultValue={initialInvestment} onChange={handleInitialInvestmentOnChange} />
+            <input type="number" id="initial-investment" defaultValue={initialInvestment} onChange={(event)=>handleFormOnChange('initialInvestment', event.target.value)} />
           </div>
           <div className="form-column">
             <label htmlFor="anual-investment">Anual Investment</label>
-            <input type="number" id="anual-investment" defaultValue={annualInvestment} onChange={handleAnnualInvestmentOnChange} />
+            <input type="number" id="anual-investment" defaultValue={annualInvestment} onChange={(event)=>handleFormOnChange('annualInvestment', event.target.value)} />
           </div>
         </div>
         <div className="form-row">
           <div className="form-column">
             <label htmlFor="expected-return">Expected Return</label>
-            <input type="number" id="expected-return" defaultValue={expectedReturn} onChange={handleExpectedReturnOnChange} />
+            <input type="number" id="expected-return" defaultValue={expectedReturn} onChange={(event)=>handleFormOnChange('expectedReturn', event.target.value)} />
           </div>
           <div className="form-column">
             <label htmlFor="duration">Duration</label>
-            <input type="number" id="duration" defaultValue={duration} onChange={handleDurationOnChange} />
+            <input type="number" id="duration" defaultValue={duration} onChange={(event)=>handleFormOnChange('duration', event.target.value)} />
           </div>
         </div>
       </div>

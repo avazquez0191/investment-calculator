@@ -1,4 +1,4 @@
-import { SetStateAction, useState } from 'react';
+import { useState } from 'react';
 import Header from './components/Header/Header';
 import Form from './components/Form/Form';
 import ResultTable from './components/ResultTable/ResultTable'
@@ -15,16 +15,18 @@ interface InvestmentYear {
 
 function App() {
   let investments: any[] = [];
-  const [initialInvestment, setInitialInvestment] = useState(0);
-  const [annualInvestment, setAnnualInvestment] = useState(0);
-  const [expectedReturn, setExpectedReturn] = useState(0);
-  const [duration, setDuration] = useState(0);
+  const [form, setForm] = useState({
+    initialInvestment: 0,
+    annualInvestment: 0,
+    expectedReturn: 0,
+    duration: 0
+  })
 
   investments = calculateInvestmentResults({
-    initialInvestment: Number(initialInvestment),
-    annualInvestment: Number(annualInvestment),
-    expectedReturn: Number(expectedReturn),
-    duration: Number(duration)
+    initialInvestment: Number(form.initialInvestment),
+    annualInvestment: Number(form.annualInvestment),
+    expectedReturn: Number(form.expectedReturn),
+    duration: Number(form.duration)
   }).map((investmentYear: InvestmentYear, index) => {
     return <tr key={index}>
       <td>{investmentYear.year}</td>
@@ -35,26 +37,21 @@ function App() {
     </tr>;
   });
 
-  function handleInitialInvestmentOnChange(event: { target: { value: SetStateAction<number>; }; }) {
-    setInitialInvestment(event.target.value);
-  }
-  function handleAnnualInvestmentOnChange(event: { target: { value: SetStateAction<number>; }; }) {
-    setAnnualInvestment(event.target.value);
-  }
-  function handleExpectedReturnOnChange(event: { target: { value: SetStateAction<number>; }; }) {
-    setExpectedReturn(event.target.value);
-  }
-  function handleDurationOnChange(event: { target: { value: SetStateAction<number>; }; }) {
-    setDuration(event.target.value);
+  function handleFormOnChange(property: string, value: number) {
+    setForm(oldForm => {
+      return {
+        ...oldForm,
+        [property]: value
+      };
+    });
   }
 
   return (
     <>
       <Header />
 
-      <Form initialInvestment={initialInvestment} annualInvestment={annualInvestment} expectedReturn={expectedReturn} duration={duration}
-        handleInitialInvestmentOnChange={handleInitialInvestmentOnChange} handleAnnualInvestmentOnChange={handleAnnualInvestmentOnChange}
-        handleExpectedReturnOnChange={handleExpectedReturnOnChange} handleDurationOnChange={handleDurationOnChange}
+      <Form initialInvestment={form.initialInvestment} annualInvestment={form.annualInvestment}
+        expectedReturn={form.expectedReturn} duration={form.duration} handleFormOnChange={handleFormOnChange}
       />
 
       <ResultTable investments={investments} />
