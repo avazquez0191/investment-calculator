@@ -51,7 +51,7 @@ function App() {
       <Header />
 
       <Form initialInvestment={form.initialInvestment} annualInvestment={form.annualInvestment}
-        expectedReturn={form.expectedReturn} duration={form.duration} handleFormOnChange={handleFormOnChange}
+        expectedReturn={form.expectedReturn} duration={form.duration} onChange={handleFormOnChange}
       />
 
       <ResultTable investments={investments} />
