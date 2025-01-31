@@ -1,11 +1,11 @@
-import { ReactNode } from 'react';
+import { calculateInvestmentResults, formatter } from "../../util/investmentHelper";
+import { InvestmentYear, InvestmentResultTableProps } from '../../util/investmentModels';
 import './ResultTable.css';
 
-interface Props {
-  investments: ReactNode;
-}
+const resultTable = ({ inputData }: InvestmentResultTableProps) => {
+  const investments = calculateInvestmentResults(inputData);
+  const initialInvestment = investments[0]?.valueEndOfYear - investments[0]?.interest - investments[0]?.annualInvestment;
 
-const resultTable = ({ investments }: Props) => {
   return (
     <>
       <div>
@@ -20,7 +20,17 @@ const resultTable = ({ investments }: Props) => {
             </tr>
           </thead>
           <tbody>
-            {investments}
+            {investments.map((investmentYear: InvestmentYear, index) => {
+              const totalInterest = investmentYear.valueEndOfYear - investmentYear.annualInvestment * investmentYear.year - initialInvestment;
+              const totalAmountInvested = investmentYear.valueEndOfYear - totalInterest;
+              return <tr key={index}>
+                <td>{investmentYear.year}</td>
+                <td>{formatter.format(investmentYear.valueEndOfYear)}</td>
+                <td>{formatter.format(investmentYear.interest)}</td>
+                <td>{formatter.format(totalInterest)}</td>
+                <td>{formatter.format(totalAmountInvested)}</td>
+              </tr>
+            })}
           </tbody>
         </table>
       </div>
